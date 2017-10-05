@@ -1,0 +1,19 @@
+<html py:extends="master.xhtml" py:strip="True">
+<head py:block="head" py:strip="True">
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" py:if="False"/>
+    <title py:block="master_title">Welcome to TurboGears pluggable Application</title>
+    <link rel="stylesheet" type="text/css" media="screen" href="${tg.url('/_pluggable/tgappinvitations/css/style.css')}" />
+</head>
+
+<body py:block="body" py:strip="True">
+    <div class="row">
+        <div class="col-md-2 col-xs-12 col-md-offset-10">
+            <a href="${tg.url(mount_point)}" class="pull-right btn btn-primary"> Back</a>
+            <div style="clear: both; margin-bottom: 10px;"></div>
+        </div>
+    </div>
+    <div class="row">
+        ${form.display(values, action=action)}
+    </div>
+</body>
+</html>

@@ -6,12 +6,14 @@
 </head>
 
 <body py:block="body" py:strip="True">
-    <div py:if="request.identity">Hi ${request.identity['user']}</div>
-    <div id="hello_box">
-        <img src="${tg.url('/_pluggable/tgappinvitations/images/star.png')}"/>
-        Hello from, ${h.tgappinvitations.bold(sample.name)}
-        owned by ${sample.user}
+    <div class="row">
+        <div class="col-md-2 col-xs-12 col-md-offset-10">
+            <a href="${tg.url(mount_point)}" class="pull-right btn btn-primary"> Back</a>
+            <div style="clear: both; margin-bottom: 10px;"></div>
+        </div>
     </div>
-    <div>${h.call_partial('tgappinvitations.partials:something', name='Partial')}</div>
+    <div class="row">
+        ${form.display(values, action=action)}
+    </div>
 </body>
 </html>

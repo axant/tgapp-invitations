@@ -25,6 +25,7 @@ testpkgs = [
     'repoze.who',
     'tw2.forms',
     'kajiki',
+    'tgext.evolve',
 ]
 
 here = os.path.abspath(os.path.dirname(__file__))
@@ -45,12 +46,12 @@ setup(
     packages=find_packages(exclude=['ez_setup']),
     install_requires=install_requires,
     include_package_data=True,
-    package_data={'tgappinvitations': [
+    package_data={'invitations': [
         'i18n/*/LC_MESSAGES/*.mo',
         'templates/*/*',
         'public/*/*'
     ]},
-    message_extractors={'tgappinvitations': [
+    message_extractors={'invitations': [
             ('**.py', 'python', None),
             ('templates/**.xhtml', 'kajiki', None),
             ('public/**', 'ignore', None)

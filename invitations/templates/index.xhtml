@@ -1,0 +1,63 @@
+<html py:extends="master.xhtml" py:strip="True">
+<head py:block="head" py:strip="True">
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" py:if="False"/>
+    <title py:block="master_title">Welcome to TurboGears pluggable Application</title>
+    <link rel="stylesheet" type="text/css" media="screen" href="${tg.url('/_pluggable/tgappinvitations/css/style.css')}" />
+</head>
+
+<body py:block="body" py:strip="True">
+    <div class="row">
+        <div class="col-md-2 col-xs-12 col-md-offset-10">
+            <a href="${tg.url(mount_point + '/create')}" class="pull-right btn btn-success"> Create</a>
+            <div style="clear: both; margin-bottom: 10px;"></div>
+        </div>
+    </div>
+    <div class="invites-list">
+        <div class="row" style="overflow-wrap: break-word; margin-bottom: 10px">
+            <p class="pagelist">
+              ${tmpl_context.paginators.invitations.pager()}
+            </p>
+            <form method="GET" action="${tg.url(mount_point)}" class="form-inline">
+                <select name="search_by" id="field" class="form-control">
+                    <option value="user_name">User Name</option>
+                    <option value="display_name">Display Name</option>
+                    <option value="email_address">Email</option>
+                </select>
+                <input name="search_value" class="form-control" style="width: auto"/>
+                <input type="submit" value="Search" class="btn btn-primary"/>
+            </form>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Actions</th>
+                        <th>Email</th>
+                        <th>Display Name</th>
+                        <th>User Name</th>
+                        <th>Groups</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr py:for="i in invitations">
+                        <td>
+                            <a href="${tg.url(mount_point + '/delete_invite/' +
+                                       str(getattr(i, h.invitations.get_primary_field('Invite'))))}"
+                               class="invitations-delete btn btn-danger col col-md1"
+                               onclick="return confirm('Are you sure?')">
+                                <span class="glyphicon glyphicon-trash"/>
+                            </a>
+                        </td>
+                        <td>${i.email_address}</td>
+                        <td>${i.display_name}</td>
+                        <td>${i.user_name}</td>
+                        <td>
+                            <span py:for="g in i.groups">
+                                ${g.display_name},
+                            </span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
