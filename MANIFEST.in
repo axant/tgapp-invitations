@@ -1,4 +1,4 @@
-recursive-include tgappinvitations/public *
-recursive-include tgappinvitations/templates *.xhtml
+recursive-include invitations/public *
+recursive-include invitations/templates *.xhtml
 global-exclude *.pyc
 
