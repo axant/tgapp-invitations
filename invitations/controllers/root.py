@@ -2,7 +2,7 @@
 """Main Controller"""
 
 from tg import TGController, config, flash, url, redirect, predicates, abort
-from tg.decorators import paginate, expose, validate
+from tg.decorators import paginate, expose, validate, require
 from tg.i18n import ugettext
 from formencode.validators import UnicodeString
 
@@ -14,10 +14,9 @@ from datetime import datetime
 
 
 class RootController(TGController):
-    allow_only = predicates.has_permission('invitations-admin')
-
     @expose('invitations.templates.index')
     @paginate('invitations', items_per_page=20)
+    @require(predicates.has_permission('invitations-admin'))
     def index(self, search_by=None, search_value=None):
         model.provider.get_entity('Invite').clear_expired()
 
@@ -32,6 +31,7 @@ class RootController(TGController):
                     mount_point=self.mount_point)
 
     @expose()
+    @require(predicates.has_permission('invitations-admin'))
     def delete_invite(self, invite_id):
         primary_field = model.provider.get_primary_field(app_model.Permission)
         try:
@@ -42,6 +42,7 @@ class RootController(TGController):
         return redirect(url(self.mount_point))
 
     @expose('invitations.templates.create')
+    @require(predicates.has_permission('invitations-admin'))
     def create(self, **kw):
         model.provider.get_entity('Invite').clear_expired()
         return dict(form=get_form(), values=kw, action=self.mount_point + '/submit',
@@ -49,6 +50,7 @@ class RootController(TGController):
 
     @expose()
     @validate(get_form(), error_handler=create)
+    @require(predicates.has_permission('invitations-admin'))
     def submit(self, **kw):
         kw['code'] = model.Invite.generate_code(kw['email_address'])
         invite = model.provider.create(model.Invite, kw)
@@ -57,6 +59,7 @@ class RootController(TGController):
 
     @expose('invitations.templates.complete')
     @validate(dict(email=UnicodeString(not_empty=True)), error_handler=index)
+    @require(predicates.has_permission('invitations-admin'))
     def complete(self, email):
         invite = model.provider.get_obj(model.Invite, {'email_address': email}) or abort(404)
         if not invite:
