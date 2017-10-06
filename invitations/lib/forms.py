@@ -38,6 +38,4 @@ class ActivateForm(Form):
                               validator=UnicodeString(min=3, max=255))
         display_name = TextField(label=l_('Display Name'), css_class='form-control',
                                  validator=UnicodeString(min=3, max=255))
-        email_address = TextField(label=l_('Email Address'), css_class='form-control',
-                                  attrs={'disabled': 'disabled'})
     submit = SubmitButton(css_class='btn btn-primary pull-right', value=l_('Save'))

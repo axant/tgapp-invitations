@@ -112,9 +112,9 @@ class RootController(TGController):
         u = model.provider.create(app_model.User,
                                   {'user_name': kw.get('user_name'),
                                    'display_name': kw.get('display_name'),
-                                   'email_address': invite.email_address,  # it's even disabled
                                    'password': kw.get('password'),
-                                   'groups': invite.groups,  # the invited user can't choose them
+                                   'email_address': invite.email_address,
+                                   'groups': invite.groups,
                                    })
 
         primary_field = model.provider.get_primary_field(model.Invite)
