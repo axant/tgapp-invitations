@@ -86,7 +86,7 @@ class RootController(TGController):
 
         send_email(invite.email_address, **email_data)
 
-        flash(ugettext('Invite created and sent to') + email)
+        flash(ugettext('Invite created and sent to') + ' ' + email)
         return redirect(self.mount_point)
 
     @expose('invitations.templates.activate')

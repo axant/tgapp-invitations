@@ -29,7 +29,7 @@ class Invite(MappedClass):
     code = FieldProperty(s.String)
     activated = FieldProperty(s.DateTime)
 
-    user_id = FieldProperty(s.String, index=True)
+    user_id = ForeignIdProperty(app_model.User)
 
     _groups = ForeignIdProperty(app_model.Group, uselist=True)
     groups = RelationProperty(app_model.Group)
