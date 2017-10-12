@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 
 """WebHelpers used in invitations."""
-from tgext.pluggable import app_model
 from invitations import model
-import six
+from tgext.pluggable.utils import instance_primary_key
 
 
 def get_primary_field(_model):

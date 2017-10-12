@@ -10,9 +10,10 @@ except ImportError:
 
 install_requires=[
     "TurboGears2 >= 2.3.9",
-    "tgext.pluggable",
+    "tgext.pluggable >= 0.7.1",
     "axf",
     "sprox",
+    "tgapp-registration >= 0.9.0",
 ]
 
 testpkgs = [

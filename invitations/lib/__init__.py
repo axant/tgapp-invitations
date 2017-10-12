@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from tg import config
 from tg import request
-from tgext.mailer import Message as message, Attachment
+from tgext.mailer import Message as message
 from tgext.mailer import get_mailer
 
 
@@ -33,9 +33,5 @@ def _get_form(pluggable_id, form_name, form_path):
     return _form
 
 
-def get_form():
-    return _get_form('invitations', 'form', 'invitations.lib.forms.InviteForm')
-
-
-def get_activate_form():
-    return _get_form('invitations', 'activate_form', 'invitations.lib.forms.ActivateForm')
+def get_create_form():
+    return _get_form('invitations', 'create_form', 'invitations.lib.forms.CreateForm')
