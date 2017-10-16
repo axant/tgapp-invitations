@@ -26,11 +26,11 @@ def plugme(app_config, options):
 
         @staticmethod
         def before_registration_form(kw):
-            invite = model.provider.get_obj(
-                model.Invite,
-                {'registration_invite_code':
-                    json.loads(kw.get('extra', '{}')).get('registration_invite_code')})
-            if not kw.get('registration_invite_code') and not invite:
+            code = json.loads(kw.get('extra', '{}')).get('registration_invite_code')
+            if not code:
+                code = kw.get('registration_invite_code')
+            invite = model.provider.get_obj(model.Invite, {'registration_invite_code': code})
+            if not invite:
                 abort(412)
             else:
                 kw['extra'] = json.dumps(

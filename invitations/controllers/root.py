@@ -11,7 +11,7 @@ from invitations.lib import get_create_form, send_email
 
 
 class RootController(TGController):
-    allow_only = predicates.has_permission('invitations-admin')
+    allow_only = predicates.has_permission('invitations-invite')
 
     @expose('invitations.templates.index')
     @paginate('invitations', items_per_page=20)
@@ -20,9 +20,10 @@ class RootController(TGController):
         if search_by and search_value != '':
             query_args = dict(filters={search_by: search_value},
                               substring_filters=[search_by])
-        query_args['filters'].update(
-            {'user_who_is_inviting': instance_primary_key(request.identity['user'])}
-        )
+        if not predicates.has_permission('invitations-admin'):
+            query_args['filters'].update(
+                {'user_who_is_inviting': instance_primary_key(request.identity['user'])}
+            )
         _, invitations = model.provider.query(model.Invite, order_by='time', **query_args)
         return dict(invitations=invitations,
                     search_by=search_by,
