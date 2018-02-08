@@ -37,7 +37,7 @@ except IOError:
 
 setup(
     name='tgapp-invitations',
-    version='0.2.4',
+    version='0.2.5',
     description='Provides a way to invite new users into a TurboGears2 application',
     long_description=README,
     author='Axant, Vincenzo Castiglia',
