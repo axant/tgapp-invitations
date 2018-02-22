@@ -14,6 +14,7 @@ def plugme(app_config, options):
     from invitations import model
     milestones.config_ready.register(model.configure_models)
     app_config['_pluggable_invitations_config'] = options
+    invite_required = options.get('invite_required', True)
 
     class RegistrationHooks(object):
         @classmethod
@@ -30,21 +31,24 @@ def plugme(app_config, options):
             if not code:
                 code = kw.get('registration_invite_code')
             invite = model.provider.get_obj(model.Invite, {'registration_invite_code': code})
-            if not invite:
+            if not invite and invite_required:
                 abort(412)
-            else:
+
+            if invite:
                 kw['extra'] = json.dumps(
                     dict(registration_invite_code=kw.get('registration_invite_code')))
                 kw['email_address'] = invite.email_address
+            else:
+                kw['extra'] = '{}'
 
         @staticmethod
         def before_registration(kw):
-            extra = json.loads(kw.get('extra'))
+            extra = json.loads(kw.get('extra'), '{}')
             invite = model.provider.get_obj(
                 model.Invite,
                 {'registration_invite_code': extra.get('registration_invite_code')},
             )
-            if not invite:
+            if not invite and invite_required:
                 abort(412)
 
         @staticmethod
@@ -54,13 +58,14 @@ def plugme(app_config, options):
                 {'registration_invite_code':
                     json.loads(kw['extra']).get('registration_invite_code')})
 
-            if not invite:
+            if not invite and invite_required:
                 abort(412)
 
-            dictionary = model.provider.dictify(invite)
-            dictionary.update({'registration': instance_primary_key(reg)})
+            if invite:
+                dictionary = model.provider.dictify(invite)
+                dictionary.update({'registration': instance_primary_key(reg)})
 
-            model.provider.update(model.Invite, dictionary)
+                model.provider.update(model.Invite, dictionary)
 
         @staticmethod
         def on_complete(reg, email_data):
@@ -76,10 +81,11 @@ def plugme(app_config, options):
         def after_activation(reg, u):
             invite = model.provider.get_obj(model.Invite,
                                             {'registration': instance_primary_key(reg)})
-            dictionary = model.provider.dictify(invite)
-            dictionary.update({'user_invited': instance_primary_key(u),
-                               'activated': datetime.now()})
-            model.provider.update(model.Invite, dictionary)
+            if invite:
+                dictionary = model.provider.dictify(invite)
+                dictionary.update({'user_invited': instance_primary_key(u),
+                                   'activated': datetime.now()})
+                model.provider.update(model.Invite, dictionary)
 
     RegistrationHooks.register(app_config)
 
