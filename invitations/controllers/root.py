@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """Main Controller"""
 
-from tg import TGController, config, flash, url, redirect, predicates, request
+from tg import TGController, config, flash, url, redirect, predicates, request, hooks
 from tg.decorators import paginate, expose, validate, require
 from tg.i18n import ugettext
 
@@ -59,6 +59,8 @@ class RootController(TGController):
                                                         ugettext('Please accept your invite')),
                       'body': mail_body,
                       'rich': invitations_config.get('mail_rich', '')}
+
+        hooks.notify('invitations.on_submit_create', args=(invite, email_data, kwargs))
 
         email_data['body'] = email_data['body']
         email_data['rich'] = email_data['rich']

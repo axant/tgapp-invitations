@@ -1,4 +1,4 @@
-# Italian (Italy) translations for tgapp-invitations.
+# English translations for tgapp-invitations.
 # Copyright (C) 2018 ORGANIZATION
 # This file is distributed under the same license as the tgapp-invitations
 # project.
@@ -9,10 +9,10 @@ msgstr ""
 "Project-Id-Version: tgapp-invitations 0.2.6\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2018-05-21 17:26+0200\n"
-"PO-Revision-Date: 2018-02-26 15:06+0100\n"
+"PO-Revision-Date: 2018-05-21 17:28+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language: it_IT\n"
-"Language-Team: it_IT <LL@li.org>\n"
+"Language: en\n"
+"Language-Team: en <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -29,44 +29,45 @@ msgstr ""
 
 #: invitations/controllers/root.py:70
 msgid "Invite created."
-msgstr "Invito creato."
+msgstr ""
 
 #: invitations/controllers/root.py:79
 msgid "Invite deleted"
-msgstr "Invito eliminato"
+msgstr ""
 
 #: invitations/lib/forms.py:15
 msgid "Email Address"
-msgstr "Indirizzo Email"
+msgstr ""
 
 #: invitations/lib/forms.py:17
 msgid "Message"
-msgstr "Messaggio"
+msgstr ""
 
 #: invitations/lib/forms.py:19
 msgid "Invite"
-msgstr "Invito"
+msgstr ""
 
 #: invitations/lib/validators.py:20
 msgid "Email address has already been taken"
-msgstr "Quest'email è già stata usata"
+msgstr ""
 
 #: invitations/lib/validators.py:22
 msgid "Invalid email"
-msgstr "Email non valida"
+msgstr ""
 
 #: invitations/templates/create.xhtml:10
 msgid "Back"
-msgstr "Indietro"
+msgstr ""
 
 #: invitations/templates/index.xhtml:11
 msgid "Create"
-msgstr "Crea"
+msgstr ""
 
 #: invitations/templates/index.xhtml:15 invitations/templates/index.xhtml:34
 msgid "Email"
-msgstr "Email"
+msgstr ""
 
 #: invitations/templates/index.xhtml:33
 msgid "Actions"
-msgstr "Azioni"
+msgstr ""
+
